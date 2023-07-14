@@ -2,9 +2,16 @@ import "./SignUp.css";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const notify = (message) => toast(message);
+  const navigate = useNavigate();
+
+  const existingOnclickHandler = () => {
+    navigate("/login");
+  };
 
   const [formData, setFormData] = useState({
     email: "",
@@ -93,6 +100,9 @@ const SignUp = () => {
       >
         Sign Up
       </button>
+      <Link style={{textAlign: "right"}}>
+        <p onClick={existingOnclickHandler}>Existing user ? Login</p>
+      </Link>
     </form>
   );
 };
