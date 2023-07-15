@@ -32,6 +32,7 @@ const Login = () => {
     });
     const fetchData = await response.json();
     notify(fetchData.message);
+    navigate('/complete-profile')
     localStorage.setItem("token", fetchData.token);
     setFormData({ email: "", password: "" });
   };
@@ -61,7 +62,7 @@ const Login = () => {
       <Link>
         <p style={{ textAlign: "right" }} onClick={newUserOnclickHandler}>
           New User ? Signup
-        </p>{" "}
+        </p>
       </Link>
     </form>
   );

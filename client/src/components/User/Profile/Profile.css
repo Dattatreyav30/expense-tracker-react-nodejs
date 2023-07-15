@@ -1,0 +1,19 @@
+
+.profile{
+    background-color: antiquewhite;
+    border-radius: 1rem;
+}
+
+.profile-incomplete{
+    background-color: antiquewhite;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    display: inline-block;
+    margin-left: 30rem;
+    margin-right: 2rem;
+}
+
+.profile-incomplete-link{
+    display: inline-block;
+    font-size: 20px;
+}

@@ -100,7 +100,7 @@ const SignUp = () => {
       >
         Sign Up
       </button>
-      <Link style={{textAlign: "right"}}>
+      <Link style={{ textAlign: "right" }}>
         <p onClick={existingOnclickHandler}>Existing user ? Login</p>
       </Link>
     </form>

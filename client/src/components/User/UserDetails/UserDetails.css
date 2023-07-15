@@ -1,0 +1,14 @@
+.user-form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 30%;
+  left: 40%;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+.user-input {
+  padding: 0.5rem;
+  margin: 15px;
+}
