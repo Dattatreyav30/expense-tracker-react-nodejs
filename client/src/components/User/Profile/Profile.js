@@ -10,6 +10,11 @@ const Profile = () => {
     navigate("/enter-details");
   };
 
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className="profile">
       <h1 style={{ display: "inline-block" }}>Hi welcome to expense tracker</h1>
@@ -19,6 +24,9 @@ const Profile = () => {
           complete now
         </p>
       </Link>
+      <button className="logout-button" onClick={logoutHandler}>
+        Log Out
+      </button>
     </div>
   );
 };

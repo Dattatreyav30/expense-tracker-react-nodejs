@@ -1,10 +1,21 @@
 
 .profile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     background-color: antiquewhite;
     border-radius: 1rem;
 }
+.logout-button{
+    color: white;
+    background-color: black;
+    padding: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-.profile-incomplete{
+/* .profile-incomplete{
     background-color: antiquewhite;
     border-radius: 1rem;
     padding: 0.5rem;
@@ -12,8 +23,8 @@
     margin-left: 30rem;
     margin-right: 2rem;
 }
-
+*/
 .profile-incomplete-link{
     display: inline-block;
     font-size: 20px;
-}
+} 
