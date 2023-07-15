@@ -6,6 +6,7 @@ import Login from "./components/User/Login/Login";
 import SignUp from "./components/User/SignUp/SignUp";
 import Profile from "./components/User/Profile/Profile";
 import UserDetails from "./components/User/UserDetails/UserDetails";
+import Greeting from "./components/User/Greeting";
 
 const router = createBrowserRouter([
   {
@@ -17,13 +18,17 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path : '/complete-profile',
-    element : <Profile/>
+    path: "/complete-profile",
+    element: <Profile />,
   },
   {
-    path : '/enter-details',
-    element : <UserDetails/>
-  }
+    path: "/enter-details",
+    element: <UserDetails />,
+  },
+  {
+    path: "/verify-email/:id",
+    element: <Greeting />,
+  },
 ]);
 
 const App = () => {

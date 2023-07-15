@@ -16,5 +16,9 @@ const userDeatils = sequelize.define("userDetails", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  isVerified: {
+    type: Sequelize.BOOLEAN,
+    allowNull: true,
+  },
 });
 module.exports = userDeatils;
