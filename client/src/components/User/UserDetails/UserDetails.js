@@ -24,7 +24,7 @@ const UserDetails = () => {
     });
 
     const fetchedData = await resposne.json();
-    console.log(formData);
+    setFormData({ fullName: "", imageUrl: "" });
     notify(fetchedData.message);
   };
 
@@ -36,6 +36,7 @@ const UserDetails = () => {
         type="text"
         className="user-input"
         placeholder="Full Name"
+        value={formData.fullName}
       />
       <input
         onChange={onChangeUrl}
@@ -43,6 +44,7 @@ const UserDetails = () => {
         type="text"
         className="user-input"
         placeholder="Photo Url"
+        value={formData.imageUrl}
       />
       <button className="form-signup-button">Send</button>
     </form>

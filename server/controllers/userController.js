@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const UserDetails = require("../models/userDetailsModel");
 
 const bcrypt = require("bcrypt");
 
@@ -48,6 +49,16 @@ exports.login = async (req, res) => {
     if (!userData) {
       return res.status(401).json({ message: "user not found" });
     }
+
+    // const isVerified = await UserDetails.findOne({
+    //   where: {
+    //     userId: userData.id,
+    //   },
+    // });
+
+    // if (isVerified.isVerified === false) {
+    //   throw new Error("please verify your email before login");
+    // }
 
     const comparePassword = await bcrypt.compare(password, userData.password);
 

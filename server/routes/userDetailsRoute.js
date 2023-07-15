@@ -12,16 +12,15 @@ router.post(
   userDetailsController.postUserDetails
 );
 
-router.get(
-  "/email",
-  authrozation.authrozation,
-  userDetailsController.verifyEmail
-);
+// router.get(
+//   "/email",
+//   authrozation.authrozation,
+//   userDetailsController.verifyEmail
+// );
 
 router.get(
-  "/verify-email/:id",
-  authrozation.authrozation,
-  userDetailsController.verifyClickedEmail
+  "/verify-email",
+  userDetailsController.verifyClickedEmail 
 );
 
 module.exports = router;

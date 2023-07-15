@@ -26,7 +26,7 @@ User.hasMany(UserDeatils);
 UserDeatils.belongsTo(User);  
 
 sequelize.sync().then(() => {
-  console.log("synced");
+  console.log("synced"); 
 });
 
 app.listen(5000, () => {
