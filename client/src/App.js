@@ -7,6 +7,8 @@ import SignUp from "./components/User/SignUp/SignUp";
 import Profile from "./components/User/Profile/Profile";
 import UserDetails from "./components/User/UserDetails/UserDetails";
 import Greeting from "./components/User/Greeting";
+import ForgotPassword from "./components/User/Login/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/User/Login/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/verify-email/:id",
     element: <Greeting />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/user/resetPassword/:id",
+    element: <ResetPassword />,
   },
 ]);
 

@@ -11,6 +11,9 @@ const Login = () => {
     navigate("/");
   };
 
+  const forgotPassHandler = () => {
+    navigate("/forgot-password");
+  };
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const emailChange = (e) => {
@@ -32,7 +35,7 @@ const Login = () => {
     });
     const fetchData = await response.json();
     notify(fetchData.message);
-    navigate('/complete-profile')
+    navigate("/complete-profile");
     localStorage.setItem("token", fetchData.token);
     setFormData({ email: "", password: "" });
   };
@@ -59,11 +62,18 @@ const Login = () => {
         required
       />
       <button className="form-signup-button">Login</button>
-      <Link>
-        <p style={{ textAlign: "right" }} onClick={newUserOnclickHandler}>
+     <div>
+     <Link >
+        <p style={{ display: "inline-block" }} onClick={newUserOnclickHandler}>
           New User ? Signup
         </p>
       </Link>
+      <Link>
+        <p style={{ display: "inline-block" , marginLeft : "10rem" }} onClick={forgotPassHandler}>
+          forgot password
+        </p>
+      </Link>
+     </div>
     </form>
   );
 };
