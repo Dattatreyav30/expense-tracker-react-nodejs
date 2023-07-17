@@ -39,11 +39,11 @@ button[type="submit"] {
   color: white;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 button[type="submit"]:hover {
   background-color: #45a049;
+  cursor: pointer;
 }
 
 .table-container {
@@ -69,4 +69,23 @@ td {
 
 th {
   font-weight: bold;
+}
+
+.delete-expense-button {
+  color: white;
+  background-color: red;
+  padding: 0.5rem;
+  border: 1px solid rgb(112, 85, 85);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-expense-button {
+  color: white;
+  background-color: rgb(44, 3, 168);
+  padding: 0.5rem;
+  border: 1px solid rgb(112, 85, 85);
+  border-radius: 5px;
+  width: 60px;
+  cursor: pointer;
 }

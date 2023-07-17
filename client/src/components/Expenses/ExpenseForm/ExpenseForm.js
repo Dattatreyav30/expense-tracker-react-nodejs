@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import ExpenseContext from "../../../Store/ExpenseContext/expense-context";
+import { v4 as uuidv4 } from "uuid";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
@@ -10,6 +11,9 @@ const ExpenseForm = () => {
     description: "",
     category: "",
   });
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState("");
 
   const moneyHandler = (e) => {
     setExpenseData({ ...expenseData, money: e.target.value });
@@ -25,9 +29,33 @@ const ExpenseForm = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    expenseCtx.addExpense(expenseData);
-    console.log(expenseCtx.expenses);
+    const newExpense = {
+      ...expenseData,
+      id: uuidv4(),
+    };
+    if (!isEdit) {
+      expenseCtx.addExpense(newExpense);
+    } else {
+      expenseCtx.editExpense(expenseData, editId);
+    }
+    setExpenseData({ money: "", description: "", category: "" });
   };
+
+  const deleteHandler = (expense) => {
+    expenseCtx.deleteExpense(expense);
+    setIsEdit(false);
+  };
+
+  const editHandler = (expense) => {
+    setIsEdit(true);
+    setEditId(expense.id);
+    setExpenseData({
+      money: expense.money,
+      description: expense.description,
+      category: expense.category,
+    });
+  };
+
   return (
     <>
       <div className="container">
@@ -37,7 +65,7 @@ const ExpenseForm = () => {
           <input
             type="number"
             id="money"
-            // value={}
+            value={expenseData.money}
             onChange={moneyHandler}
             required
           />
@@ -46,7 +74,7 @@ const ExpenseForm = () => {
           <input
             type="text"
             id="description"
-            // value={description}
+            value={expenseData.description}
             onChange={descHandler}
             required
           />
@@ -54,7 +82,7 @@ const ExpenseForm = () => {
           <label htmlFor="category">Category:</label>
           <select
             id="category"
-            // value={}
+            value={expenseData.category}
             onChange={categoryHandler}
             required
           >
@@ -64,6 +92,7 @@ const ExpenseForm = () => {
             <option value="Food">Food</option>
             <option value="Petrol">Petrol</option>
             <option value="Salary">Salary</option>
+            <option value="Salary">Travel</option>
             <option value="Other">Other</option>
           </select>
           <button type="submit">Submit</button>
@@ -76,14 +105,36 @@ const ExpenseForm = () => {
               <th>Money Spent</th>
               <th>Description</th>
               <th>Category</th>
+              <th>Delete</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
             {expenseCtx.expenses.map((expense) => (
-              <tr key={Math.random()}>
+              <tr key={expense.id}>
                 <td>{expense.money}</td>
                 <td>{expense.description}</td>
                 <td>{expense.category}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      deleteHandler(expense);
+                    }}
+                    className="delete-expense-button"
+                  >
+                    Delete
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      editHandler(expense);
+                    }}
+                    className="edit-expense-button"
+                  >
+                    Edit
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

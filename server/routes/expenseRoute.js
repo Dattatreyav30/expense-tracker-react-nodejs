@@ -16,4 +16,16 @@ router.get(
   authrizattion.authrozation,
   expenseController.fecthExpenses
 );
+
+router.delete(
+  "/delete-expense/:id",
+  authrizattion.authrozation,
+  expenseController.deleteExpense
+);
+
+router.put(
+  "/edit-expense/:id",
+  authrizattion.authrozation,
+  expenseController.editExpense
+);
 module.exports = router;
