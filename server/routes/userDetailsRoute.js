@@ -18,9 +18,12 @@ router.post(
 //   userDetailsController.verifyEmail
 // );
 
+router.get("/verify-email", userDetailsController.verifyClickedEmail);
+
 router.get(
-  "/verify-email",
-  userDetailsController.verifyClickedEmail 
-);
+  "/check-user",
+  authrozation.authrozation,
+  userDetailsController.checkUser
+);   
 
 module.exports = router;

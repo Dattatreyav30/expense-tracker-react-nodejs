@@ -9,6 +9,9 @@ const authrozation = async (req, res, next) => {
   req.userId = userId;
   next();
 };
+
+   
 module.exports = {
   authrozation,
 };
+       

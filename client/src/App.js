@@ -9,6 +9,7 @@ import UserDetails from "./components/User/UserDetails/UserDetails";
 import Greeting from "./components/User/Greeting";
 import ForgotPassword from "./components/User/Login/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/User/Login/ResetPassword";
+import ExpenseForm from "./components/Expenses/ExpenseForm/ExpenseForm";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/user/resetPassword/:id",
     element: <ResetPassword />,
+  },
+  {
+    path: "/expense-form",
+    element: <ExpenseForm />,
   },
 ]);
 

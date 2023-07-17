@@ -35,8 +35,8 @@ const Login = () => {
     });
     const fetchData = await response.json();
     notify(fetchData.message);
-    navigate("/complete-profile");
     localStorage.setItem("token", fetchData.token);
+    navigate("/complete-profile");
     setFormData({ email: "", password: "" });
   };
 

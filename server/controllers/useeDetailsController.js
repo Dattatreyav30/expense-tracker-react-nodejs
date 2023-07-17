@@ -89,3 +89,18 @@ exports.verifyClickedEmail = async (req, res, next) => {
     res.status(500).json({ message: Err.message });
   }
 };
+
+exports.checkUser = async (req, res) => {
+  try {
+    const userDetails = await UserDetails.findOne({
+      where: { userId: req.userId },
+    });
+
+    if (!userDetails) {
+      throw new Error("user not found");
+    }
+    res.status(200).json({ message: "successfull" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
