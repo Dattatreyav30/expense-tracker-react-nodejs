@@ -9,7 +9,7 @@ import UserDetails from "./components/User/UserDetails/UserDetails";
 import Greeting from "./components/User/Greeting";
 import ForgotPassword from "./components/User/Login/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/User/Login/ResetPassword";
-import ExpenseForm from "./components/Expenses/ExpenseForm/ExpenseForm";
+import ExpenseParent from "./components/Expenses/Expense/ExpenseParent";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +42,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/expense-form",
-    element: <ExpenseForm />,
+    element: (
+      <>
+        <ExpenseParent />
+      </>
+    ),
   },
 ]);
 
