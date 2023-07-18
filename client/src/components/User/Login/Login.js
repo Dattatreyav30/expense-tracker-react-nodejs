@@ -35,8 +35,10 @@ const Login = () => {
     });
     const fetchData = await response.json();
     notify(fetchData.message);
-    localStorage.setItem("token", fetchData.token);
-    navigate("/complete-profile");
+    if (response.ok) {
+      localStorage.setItem("token", fetchData.token);
+      navigate("/complete-profile");
+    }
     setFormData({ email: "", password: "" });
   };
 
@@ -47,7 +49,7 @@ const Login = () => {
         value={formData.email}
         onChange={emailChange}
         className="form-signup-input"
-        type="text"
+        type="email"
         name="email"
         placeholder="Email"
         required
@@ -62,18 +64,16 @@ const Login = () => {
         required
       />
       <button className="form-signup-button">Login</button>
-     <div>
-     <Link >
-        <p style={{ display: "inline-block" }} onClick={newUserOnclickHandler}>
-          New User ? Signup
-        </p>
-      </Link>
-      <Link>
-        <p style={{ display: "inline-block" , marginLeft : "10rem" }} onClick={forgotPassHandler}>
-          forgot password
-        </p>
-      </Link>
-     </div>
+      <div style={{ display: "flex" }}>
+        <Link>
+          <p onClick={newUserOnclickHandler}>New User ? Signup</p>
+        </Link>
+        <Link>
+          <p style={{ marginLeft: "10rem" }} onClick={forgotPassHandler}>
+            forgot password
+          </p>
+        </Link>
+      </div>
     </form>
   );
 };

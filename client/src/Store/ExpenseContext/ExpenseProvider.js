@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ExpenseContext from "./expense-context";
 
 const ExpenseProvider = (props) => {
+  const navigate = useNavigate();
   const notify = (message) => toast(message);
   const [expenses, setExpenses] = useState([]);
+
+  useEffect(()=>{
+    if(!localStorage.getItem('token')){
+      return navigate('/login')
+    }
+  },[])
 
   const addExpense = async (expense) => {
     const response = await fetch("http://localhost:5000/expenses/add-expense", {
@@ -83,7 +91,6 @@ const ExpenseProvider = (props) => {
         return item.id !== id;
       });
       setExpenses([fetchData.expense, ...filteredExpense]);
-      console.log(filteredExpense);
     }
     notify(fetchData.message);
   };

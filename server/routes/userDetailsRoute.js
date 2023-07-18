@@ -11,19 +11,12 @@ router.post(
   authrozation.authrozation,
   userDetailsController.postUserDetails
 );
-
-// router.get(
-//   "/email",
-//   authrozation.authrozation,
-//   userDetailsController.verifyEmail
-// );
-
 router.get("/verify-email", userDetailsController.verifyClickedEmail);
 
 router.get(
   "/check-user",
   authrozation.authrozation,
   userDetailsController.checkUser
-);   
+);
 
 module.exports = router;

@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ExpenseContext from "../../../Store/ExpenseContext/expense-context";
 import { v4 as uuidv4 } from "uuid";
 import "./ExpenseForm.css";
+import { useNavigate } from "react-router-dom";
 
 const ExpenseForm = () => {
+  const navigate  = useNavigate()
   const expenseCtx = useContext(ExpenseContext);
 
   const [expenseData, setExpenseData] = useState({
@@ -56,10 +58,18 @@ const ExpenseForm = () => {
     });
   };
 
+  const logoutHandler = () =>{
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
+
   return (
     <>
+      <header className="expense-header">
+      <h1>Expense Tracker</h1>
+        <button onClick={logoutHandler}>Log Out</button>
+      </header>
       <div className="container">
-        <h1>Expense Form</h1>
         <form onSubmit={onSubmitHandler}>
           <label htmlFor="money">Money Spent:</label>
           <input
