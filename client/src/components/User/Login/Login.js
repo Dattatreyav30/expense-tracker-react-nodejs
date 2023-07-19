@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../../Store/reduxStore/redux-store";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const notify = (message) => toast(message);
 
   const newUserOnclickHandler = () => {
@@ -39,42 +42,47 @@ const Login = () => {
       localStorage.setItem("token", fetchData.token);
       navigate("/complete-profile");
     }
+    dispatch(authActions.isLogin());
     setFormData({ email: "", password: "" });
   };
 
   return (
-    <form className="form-signup" onSubmit={onSubmitEventHandler}>
-      <h1 style={{ textAlign: "center" }}>Login</h1>
-      <input
-        value={formData.email}
-        onChange={emailChange}
-        className="form-signup-input"
-        type="email"
-        name="email"
-        placeholder="Email"
-        required
-      />
-      <input
-        value={formData.password}
-        onChange={passwordChange}
-        className="form-signup-input"
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-      />
-      <button className="form-signup-button">Login</button>
-      <div style={{ display: "flex" }}>
-        <Link>
-          <p onClick={newUserOnclickHandler}>New User ? Signup</p>
-        </Link>
-        <Link>
-          <p style={{ marginLeft: "10rem" }} onClick={forgotPassHandler}>
-            forgot password
-          </p>
-        </Link>
-      </div>
-    </form>
+    <>
+      
+      <form className="form-signup" onSubmit={onSubmitEventHandler}>
+        <h1 style={{ textAlign: "center" }}>Login</h1>
+        <input
+          value={formData.email}
+          onChange={emailChange}
+          className="form-signup-input"
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          value={formData.password}
+          onChange={passwordChange}
+          className="form-signup-input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button className="form-signup-button">Login</button>
+        <div style={{ display: "flex" }}>
+          <Link>
+            <p onClick={newUserOnclickHandler}>New User ? Signup</p>
+          </Link>
+          <Link>
+            <p style={{ marginLeft: "10rem" }} onClick={forgotPassHandler}>
+              forgot password
+            </p>
+          </Link>
+        </div>
+      </form>
+
+    </>
   );
 };
 

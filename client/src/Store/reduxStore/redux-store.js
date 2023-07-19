@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const intialExpenseState = { expenses: [] };
+const intialAuthState = { isLoggedIn: false, activatePremium : false };
 
 const expenseSlice = createSlice({
   name: "expense",
@@ -19,11 +20,28 @@ const expenseSlice = createSlice({
       const { editedExpense, filteredArr } = action.payload;
       state.expenses = [editedExpense, ...filteredArr];
     },
+    resetExpense(state){
+      state.expenses = []
+    },
+  },
+});
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState: intialAuthState,
+  reducers: {
+    isLogin(state) {
+      state.isLoggedIn = true;
+    },
+    isPremium(state){
+      state.activatePremium = true;
+    }
   },
 });
 
 const store = configureStore({
-  reducer: { expense: expenseSlice.reducer },
+  reducer: { expense: expenseSlice.reducer, auth: authSlice.reducer },
 });
 export default store;
 export const expenseActions = expenseSlice.actions;
+export const authActions = authSlice.actions;
