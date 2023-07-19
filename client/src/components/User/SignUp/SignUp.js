@@ -46,7 +46,7 @@ const SignUp = () => {
     setFormData({ ...formData, confPass: e.target.value });
   };
 
-  const onSubmitHandler = async (e) => { 
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:5000/user/signup", {
       method: "POST",

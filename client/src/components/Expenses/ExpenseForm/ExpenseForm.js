@@ -1,11 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import ExpenseContext from "../../../Store/ExpenseContext/expense-context";
+import { useDispatch, useSelector } from "react-redux";
+import { expenseActions } from "../../../Store/reduxStore/redux-store";
 import { v4 as uuidv4 } from "uuid";
+import "react-toastify/dist/ReactToastify.css";
 import "./ExpenseForm.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ExpenseForm = () => {
-  const navigate  = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const notify = (message) => toast(message);
+  const expenses = useSelector((state) => state.expense.expenses);
+
   const expenseCtx = useContext(ExpenseContext);
 
   const [expenseData, setExpenseData] = useState({
@@ -36,7 +44,7 @@ const ExpenseForm = () => {
       id: uuidv4(),
     };
     if (!isEdit) {
-      expenseCtx.addExpense(newExpense);
+      addExpense(newExpense);
     } else {
       expenseCtx.editExpense(expenseData, editId);
     }
@@ -58,15 +66,31 @@ const ExpenseForm = () => {
     });
   };
 
-  const logoutHandler = () =>{
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const addExpense = async (expense) => {
+    const response = await fetch("http://localhost:5000/expenses/add-expense", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(expense),
+    });
+
+    const fetchData = await response.json();
+
+    notify(fetchData.message);
+    dispatch(expenseActions.updateExpenses(expense));
+  };
 
   return (
     <>
       <header className="expense-header">
-      <h1>Expense Tracker</h1>
+        <h1>Expense Tracker</h1>
         <button onClick={logoutHandler}>Log Out</button>
       </header>
       <div className="container">
@@ -120,7 +144,7 @@ const ExpenseForm = () => {
             </tr>
           </thead>
           <tbody>
-            {expenseCtx.expenses.map((expense) => (
+            {expenses.map((expense) => (
               <tr key={expense.id}>
                 <td>{expense.money}</td>
                 <td>{expense.description}</td>
