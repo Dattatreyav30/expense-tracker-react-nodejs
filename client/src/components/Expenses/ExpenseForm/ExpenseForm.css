@@ -1,4 +1,3 @@
-
 .container {
   max-width: auto;
   margin: 0 auto;
@@ -89,14 +88,14 @@ th {
   cursor: pointer;
 }
 
-.expense-header{
+.expense-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #4caf50;
   padding: 1rem;
 }
-.expense-header button{
+.expense-header button {
   margin: 20px;
   padding: 0.3rem;
   color: white;
@@ -106,10 +105,15 @@ th {
   width: 80px;
   cursor: pointer;
 }
-.downloadexpense{
-  margin:1.6rem;
+.downloadexpense {
+  margin: 1.6rem;
   background-color: blue;
   color: white;
   padding: 0.8rem;
   border-radius: 8px;
+}
+
+body.dark-theme {
+  background-color: #333;
+  color: #fff;
 }

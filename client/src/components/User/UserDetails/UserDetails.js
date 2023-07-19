@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "./UserDetails.css";
 
 const UserDetails = () => {
+  const navigate = useNavigate()
   const notify = (message) => toast(message);
   const [formData, setFormData] = useState({ fullName: "", imageUrl: "" });
 
@@ -26,6 +28,7 @@ const UserDetails = () => {
     const fetchedData = await resposne.json();
     setFormData({ fullName: "", imageUrl: "" });
     notify(fetchedData.message);
+    navigate('/expense-form')
   };
 
   return (

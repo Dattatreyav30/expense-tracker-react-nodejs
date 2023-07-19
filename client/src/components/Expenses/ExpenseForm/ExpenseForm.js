@@ -181,6 +181,13 @@ const ExpenseForm = () => {
     const blob = new Blob([data], { type: "text/plain" });
     link.href = URL.createObjectURL(blob);
   };
+
+  const [isDarktheme, setDarktheme] = useState(false);
+
+  const themeHandler = () => {
+    setDarktheme(!isDarktheme);
+    document.body.classList.toggle("dark-theme", !isDarktheme);
+  };
   return (
     <>
       {isLogin && (
@@ -200,6 +207,14 @@ const ExpenseForm = () => {
               >
                 Download Expenses
               </a>
+            )}
+            {isPremiumUser && (
+              <button
+                onClick={themeHandler}
+                className={isDarktheme ? "dark-theme" : ""}
+              >
+                change theme
+              </button>
             )}
           </header>
           <div className="container">

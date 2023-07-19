@@ -15,7 +15,7 @@ const generateAccesstoken = (userId) => {
 exports.postUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = User.findOne({
+    const user = await User.findOne({
       where: {
         email: email,
       },
