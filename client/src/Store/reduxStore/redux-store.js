@@ -1,7 +1,11 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const intialExpenseState = { expenses: [] };
-const intialAuthState = { isLoggedIn: false, activatePremium : false };
+const intialAuthState = {
+  isLoggedIn: false,
+  activatePremium: false,
+  isPremiumUser: false,
+};
 
 const expenseSlice = createSlice({
   name: "expense",
@@ -20,8 +24,8 @@ const expenseSlice = createSlice({
       const { editedExpense, filteredArr } = action.payload;
       state.expenses = [editedExpense, ...filteredArr];
     },
-    resetExpense(state){
-      state.expenses = []
+    resetExpense(state) {
+      state.expenses = [];
     },
   },
 });
@@ -33,9 +37,12 @@ const authSlice = createSlice({
     isLogin(state) {
       state.isLoggedIn = true;
     },
-    isPremium(state){
+    isPremium(state) {
       state.activatePremium = true;
-    }
+    },
+    isPremiumUser(state) {
+      state.isPremiumUser = true;
+    },
   },
 });
 

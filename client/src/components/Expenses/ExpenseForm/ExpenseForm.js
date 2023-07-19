@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   expenseActions,
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ExpenseForm.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Button from "../../UI/Button";
 
 const ExpenseForm = () => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const ExpenseForm = () => {
   const notify = (message) => toast(message);
   const expenses = useSelector((state) => state.expense.expenses);
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
-  const isPremium = useSelector((state) => state.auth.activatePremium );
+  const isPremium = useSelector((state) => state.auth.activatePremium);
+  const isPremiumUser = useSelector((state) => state.auth.isPremiumUser);
 
   const [expenseData, setExpenseData] = useState({
     money: "",
@@ -158,18 +160,27 @@ const ExpenseForm = () => {
     notify(fetchData.message);
   };
 
-
   useEffect(() => {
-   const totalAmount = expenses.reduce((acc, ele) => {
+    const totalAmount = expenses.reduce((acc, ele) => {
       acc = acc + ele.money;
       return acc;
     }, 0);
     if (totalAmount >= 10000) {
       dispatch(authActions.isPremium());
     }
-    console.log(totalAmount)
-  },[expenses]);
+    console.log(totalAmount);
+  }, [expenses, dispatch]);
 
+  const premiumHandler = async () => {
+    dispatch(authActions.isPremiumUser());
+  };
+
+  const downloadHandler = async () => {
+    const data = JSON.stringify(expenses);
+    const link = document.getElementById("expense-downloader");
+    const blob = new Blob([data], { type: "text/plain" });
+    link.href = URL.createObjectURL(blob);
+  };
   return (
     <>
       {isLogin && (
@@ -177,7 +188,19 @@ const ExpenseForm = () => {
           <header className="expense-header">
             <h1>Expense Tracker</h1>
             <button onClick={logoutHandler}>Log Out</button>
-            {isPremium && <button style={{backgroundColor:"blue"}}>Buy premium</button>}
+            {isPremium && (
+              <Button onClick={premiumHandler} value="Buy premium" />
+            )}
+            {isPremiumUser && (
+              <a
+                download="myfile.txt"
+                onClick={downloadHandler}
+                id="expense-downloader"
+                className="downloadexpense"
+              >
+                Download Expenses
+              </a>
+            )}
           </header>
           <div className="container">
             <form onSubmit={onSubmitHandler}>

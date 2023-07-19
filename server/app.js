@@ -21,10 +21,12 @@ app.use("/user", userRoute);
 app.use(userDetailsRoute);
 app.use("/expenses", expenseRoute);
 
+
 const User = require("./models/userModel");
 const UserDeatils = require("./models/userDetailsModel");
 const forgotPass = require("./models/forgotPassModel");
 const expenses = require("./models/expenseModel");
+
 
 User.hasMany(UserDeatils);
 UserDeatils.belongsTo(User);
@@ -34,6 +36,7 @@ forgotPass.belongsTo(User);
 
 User.hasMany(expenses);
 expenses.belongsTo(User);
+
 
 sequelize.sync().then(() => {
   console.log("synced");

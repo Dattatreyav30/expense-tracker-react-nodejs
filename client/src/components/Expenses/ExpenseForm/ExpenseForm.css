@@ -106,3 +106,10 @@ th {
   width: 80px;
   cursor: pointer;
 }
+.downloadexpense{
+  margin:1.6rem;
+  background-color: blue;
+  color: white;
+  padding: 0.8rem;
+  border-radius: 8px;
+}
