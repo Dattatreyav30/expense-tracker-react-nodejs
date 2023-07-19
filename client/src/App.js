@@ -9,7 +9,6 @@ import UserDetails from "./components/User/UserDetails/UserDetails";
 import Greeting from "./components/User/Greeting";
 import ForgotPassword from "./components/User/Login/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/User/Login/ResetPassword";
-import ExpenseParent from "./components/Expenses/Expense/ExpenseParent";
 import ExpenseForm from "./components/Expenses/ExpenseForm/ExpenseForm";
 
 const router = createBrowserRouter([

@@ -9,6 +9,16 @@ const expenseSlice = createSlice({
     updateExpenses(state, action) {
       state.expenses = [action.payload, ...state.expenses];
     },
+    fetcExpenses(state, action) {
+      state.expenses = [...action.payload, ...state.expenses];
+    },
+    deleteExpense(state, action) {
+      state.expenses = [...action.payload];
+    },
+    editExpense(state, action) {
+      const { editedExpense, filteredArr } = action.payload;
+      state.expenses = [editedExpense, ...filteredArr];
+    },
   },
 });
 

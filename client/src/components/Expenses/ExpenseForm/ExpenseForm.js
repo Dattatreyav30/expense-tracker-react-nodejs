@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ExpenseContext from "../../../Store/ExpenseContext/expense-context";
 import { useDispatch, useSelector } from "react-redux";
 import { expenseActions } from "../../../Store/reduxStore/redux-store";
+
 import { v4 as uuidv4 } from "uuid";
 import "react-toastify/dist/ReactToastify.css";
 import "./ExpenseForm.css";
@@ -46,13 +47,13 @@ const ExpenseForm = () => {
     if (!isEdit) {
       addExpense(newExpense);
     } else {
-      expenseCtx.editExpense(expenseData, editId);
+      editExpense(expenseData, editId);
     }
     setExpenseData({ money: "", description: "", category: "" });
   };
 
   const deleteHandler = (expense) => {
-    expenseCtx.deleteExpense(expense);
+    deleteExpense(expense);
     setIsEdit(false);
   };
 
@@ -71,6 +72,26 @@ const ExpenseForm = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    fetchExpenses();
+    console.log(expenses);
+  }, []);
+
+  const fetchExpenses = async () => {
+    const response = await fetch(
+      "http://localhost:5000/expenses/fetch-expenses",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
+    const fecthedResponse = await response.json();
+    dispatch(expenseActions.fetcExpenses(fecthedResponse.expenses));
+  };
+
   const addExpense = async (expense) => {
     const response = await fetch("http://localhost:5000/expenses/add-expense", {
       method: "POST",
@@ -85,6 +106,53 @@ const ExpenseForm = () => {
 
     notify(fetchData.message);
     dispatch(expenseActions.updateExpenses(expense));
+  };
+
+  const deleteExpense = async (expense) => {
+    const response = await fetch(
+      `http://localhost:5000/expenses/delete-expense/${expense.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
+    const fecthedResponse = await response.json();
+    if (response.ok) {
+      const filteredExpense = expenses.filter((item) => item.id !== expense.id);
+      dispatch(expenseActions.deleteExpense(filteredExpense));
+    }
+    notify(fecthedResponse.message);
+  };
+
+  const editExpense = async (expense, id) => {
+    const response = await fetch(
+      `http://localhost:5000/expenses/edit-expense/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+        body: JSON.stringify(expense),
+      }
+    );
+    const fetchData = await response.json();
+    console.log(fetchData);
+    if (response.ok) {
+      const filteredExpense = expenses.filter((item) => {
+        return item.id !== id;
+      });
+      dispatch(
+        expenseActions.editExpense({
+          editedExpense: fetchData.expense,
+          filteredArr: filteredExpense,
+        })
+      );
+    }
+    notify(fetchData.message);
   };
 
   return (
